@@ -99,5 +99,5 @@ sudo apt-get install linux-headers-$(uname -r)
 
 ## With Love
 
-[TerraUnity Team](http://terraunity.com)![alt text](http://terraunity.com/wp-content/uploads/2015/03/TerraUnity_Logo.png "TerraUnity Logo")
+[TerraUnity Team](http://terraunity.com)![alt text](http://terraunity.com/wp-content/uploads/2015/03/TerraUnity_Logo.png "TerraUnity Logo" =100x)
 
