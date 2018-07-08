@@ -1,5 +1,5 @@
 # Installing DensePose
-Because installing DensePose is hard, I provided a simple installation guid based on [DensePose Installation](https://github.com/facebookresearch/DensePose/blob/master/INSTALL.md) and the provided [Dockerfile](https://github.com/facebookresearch/DensePose/blob/master/docker/Dockerfile)
+Because installing DensePose is hard, I provided a simple installation guid based on [DensePose Installation](https://github.com/facebookresearch/DensePose/blob/master/INSTALL.md) and the provided [Dockerfile](https://github.com/facebookresearch/DensePose/blob/master/docker/Dockerfile).
 
 
 **Requirements:**
@@ -89,8 +89,120 @@ Because installing DensePose is hard, I provided a simple installation guid base
         ```
     2. The installation will ask you for some location but for testing the default ones will work
     3. It will install anaconda to your home directory
+    4. We assume that anaconda is installed in our home directory and the path looks like this:
+        ```bash
+        /home/terra/anaconda  
+        ```
+        adding the path to our environment path
+        ```bash
+
+        ```
+9. Installing caffe2
+    1. By running this command conda will try to install caffe2 with cuda support.
+        ```bash
+        conda install -c caffe2 caffe2-cuda9.0-cudnn7
+        ```
+    2. Verifing caffe2 installation:
+        ```bash
+        python2 -c 'from caffe2.python import     workspace; print    (workspace.NumCudaDevices())'
+        ```
+10. Install the [COCO API](https://github.com/cocodataset/cocoapi):
+
+    ```
+    # COCOAPI=/path/to/clone/cocoapi
+    git clone https://github.com/cocodataset/cocoapi.git    $COCOAPI
+    cd $COCOAPI/PythonAPI
+    # Install into global site-packages
+    make install
+    # Alternatively, if you do not have permissions or    prefer
+    # not to install the COCO API into global     site-packages
+    python2 setup.py install --user
+    ```
+    
+    Note that instructions like `#    COCOAPI=/path/to/install/cocoapi` indicate that you   should pick a path where you'd like to have the    software cloned and then set an environment variable    (`COCOAPI` in this case) accordingly.
 
 
+11. Finally Installing Densepose
+
+    Clone the Densepose repository:
+
+    ```
+    # DENSEPOSE=/path/to/clone/densepose
+    git clone https://github.com/facebookresearch/densepose $DENSEPOSE
+    ```
+
+    Install Python dependencies:
+
+    ```
+    pip install -r $DENSEPOSE/requirements.txt
+    ```
+
+    Set up Python modules:
+
+    ```
+    cd $DENSEPOSE && make
+    ```
+
+    Check that Detectron tests pass (e.g. for [`SpatialNarrowAsOp test`](tests/test_spatial_narrow_as_op.py)):
+
+    ```
+    python2 $DENSEPOSE/detectron/tests/test_spatial_narrow_as_op.py
+    ```
+
+    Build the custom operators library:
+
+    ```
+    cd $DENSEPOSE && make ops
+    ```
+
+    Check that the custom operator tests pass:
+
+    ```
+    python2 $DENSEPOSE/detectron/tests/test_zero_even_op.py
+    ```
+    ### Fetch DensePose data.
+    Get necessary files to run, train and evaluate DensePose.
+    ```
+    cd $DENSEPOSE/DensePoseData
+    bash get_densepose_uv.sh
+    ```
+    For training, download the DensePose-COCO dataset:
+    ```
+    bash get_DensePose_COCO.sh
+    ```
+    For evaluation, get the necessary files:
+    ```
+    bash get_eval_data.sh
+    ```
+    ## Setting-up the COCO dataset.
+
+    Create a symlink for the COCO dataset in your `datasets/data` folder.
+    ```
+    ln -s /path/to/coco $DENSEPOSE/detectron/datasets/data/coco
+    ```
+
+    Create symlinks for the DensePose-COCO annotations
+
+    ```
+    ln -s $DENSEPOSE/DensePoseData/DensePose_COCO/densepose_coco_2014_minival.json $DENSEPOSE/detectron/datasets/data/coco/annotations/
+    ln -s $DENSEPOSE/DensePoseData/DensePose_COCO/densepose_coco_2014_train.json $DENSEPOSE/detectron/datasets/data/coco/annotations/
+    ln -s $DENSEPOSE/DensePoseData/DensePose_COCO/densepose_coco_2014_valminusminival.json $DENSEPOSE/detectron/datasets/data/coco/annotations/
+    ```
+
+    Your local COCO dataset copy at `/path/to/coco` should have the following directory structure:
+
+    ```
+    coco
+    |_ coco_train2014
+    |  |_ <im-1-name>.jpg
+    |  |_ ...
+    |  |_ <im-N-name>.jpg
+    |_ coco_val2014
+    |_ ...
+    |_ annotations
+      |_ instances_train2014.json
+      |_ ...
+    ```
 ## Result
 
 
