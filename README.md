@@ -37,7 +37,7 @@ Because installing DensePose is hard, I provided a simple installation guid base
     uname -r
     ``` 
     ```
-    4.4.0- 
+    4.4.0-128-generic
     ```
 
     then we should install the kernel headers
@@ -75,7 +75,7 @@ Because installing DensePose is hard, I provided a simple installation guid base
         ```bash
         sudo cp cuda/include/cudnn.h      /usr/local/cuda/include
         sudo cp cuda/lib64/libcudnn*      /usr/local/cuda/lib64
-        sudo chmod a+r  /usr/local/cuda/include/cudnn.h     /usr/local/cuda/lib64/libcudnn*
+        sudo chmod a+r  /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
         ```
 
 7. Next we have to download [Nvidia NCCL for ubuntu](https://developer.nvidia.com/nccl)
@@ -84,18 +84,22 @@ Because installing DensePose is hard, I provided a simple installation guid base
 8. We should also download [anaconda](https://conda.io/docs/user-guide/install/download.html#anaconda-or-miniconda) to install caffe2  
     1. Download Python 2.7 version from [this link](https://www.anaconda.com/download/)
         ```bash
-        chmod +x  Anaconda2-5.2.0-Linux-x86_64.sh
+        chmod +x Anaconda2-5.2.0-Linux-x86_64.sh
         ./Anaconda2-5.2.0-Linux-x86_64.sh
         ```
     2. The installation will ask you for some location but for testing the default ones will work
     3. It will install anaconda to your home directory
     4. We assume that anaconda is installed in our home directory and the path looks like this:
         ```bash
-        /home/terra/anaconda  
+        /home/terra/anaconda2  
         ```
         adding the path to our environment path
         ```bash
-
+        
+        export PATH="/home/terra/anaconda2/bin${PATH:+:${PATH}}"
+        export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}"
+        export LD_LIBRARY_PATH=/usr/local/cuda/lib64\
+                                ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
         ```
 9. Installing caffe2
     1. By running this command conda will try to install caffe2 with cuda support.
@@ -203,9 +207,21 @@ Because installing DensePose is hard, I provided a simple installation guid base
       |_ instances_train2014.json
       |_ ...
     ```
-## Result
+## Results
+
+### First Try
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/first/TGC2018_3.jpg" width="200">
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/first/demo_im.jpg" width="200">
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/first/demo_im_INDS.png" width="200">
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/first/demo_im_IUV.png" width="200">
 
 
+### Second Try
+
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/second/photo_2018-07-14_13-05-46.jpg" width="200">
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/second/demo_im.jpg" width="200">
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/second/demo_im_INDS.png" width="200">
+<img src="https://raw.githubusercontent.com/siamaksalman/denseposeInstalltion/master/second/demo_im_IUV.png" width="200">
 
 
 
