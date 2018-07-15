@@ -233,6 +233,6 @@ Feel free to open an issue if you find anything that needs to be improved. I wil
 <img src="http://terraunity.com/wp-content/uploads/2015/03/TerraUnity_Logo.png" width="150">
 
 
-<a href=https://discord.gg/tCyWVhn>
+<a href=https://discord.gg/uZKmAy9>
 <img src="https://camo.githubusercontent.com/6a38501083280e001a6dc5daf56b7debae02dade/68747470733a2f2f646973636f72646170702e636f6d2f6173736574732f66633062303166653130613062386336303266623031303664383138396439622e706e67" width="150"></a>
 
